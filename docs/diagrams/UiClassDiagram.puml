@@ -1,0 +1,42 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor MODEL_COLOR
+skinparam classBackgroundColor MODEL_COLOR
+
+note left of HiddenOutside: The logic decides which Ui class to call
+
+Class HiddenOutside #FFFFFF
+
+Package Ui <<Rectangle>> {
+
+Class ActionUi
+Class DebtUi
+Class EntryUi
+Class LimitUi
+Class ListUi
+Class ModifyUi
+Class SearchUi
+Class StorageUi
+Class "{abstract}\nUi" as Ui
+
+HiddenOutside ..> ActionUi
+HiddenOutside ..> DebtUi
+HiddenOutside ..> EntryUi
+HiddenOutside ..> LimitUi
+HiddenOutside ..> ListUi
+HiddenOutside ..> ModifyUi
+HiddenOutside ..> SearchUi
+HiddenOutside ..> StorageUi
+
+ActionUi -down-|> Ui
+DebtUi -down-|> Ui
+EntryUi -down-|> Ui
+LimitUi -down-|> Ui
+ListUi -down-|> Ui
+ModifyUi -down-|> Ui
+SearchUi -down-|> Ui
+StorageUi -down-|> Ui
+}
+
+@enduml
