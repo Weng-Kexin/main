@@ -32,10 +32,6 @@ public abstract class Parser implements ParserStringList, ModeStringList {
     protected String[] inputArray;
     protected String commandToRun;
     protected static final String SPACE = " ";
-    protected static int undoFlag = 0;
-    protected static int redoFlag = 0;
-    protected static int prevPosition;
-
     protected int modifyRecordNum;
 
 
@@ -216,37 +212,6 @@ public abstract class Parser implements ParserStringList, ModeStringList {
         return true;
     }
 
-    /**
-     * This method will set the prevPosition int in this class.
-     * @param prevPosition the prevPosition of a deleted input.
-     */
-    public static void setPrevPosition(int prevPosition) {
-        Parser.prevPosition = prevPosition;
-        undoFlag = 1;
-    }
-
-    /**
-     * THis method will set prevPosition to -1 and undoFlag to 0.
-     */
-    public static void resetUndoFlag() {
-        Parser.prevPosition = -1;
-        undoFlag = 0;
-    }
-
-    /**
-     * This method will set redoFlag to 1.
-     */
-    public static void setRedoFlag() {
-        redoFlag = 1;
-    }
-
-    /**
-     * This method will set redoFlag to 0.
-     */
-    public static void resetRedoFlag() {
-        redoFlag = 0;
-    }
-
     //@@author omupenguin
     /**
      * Returns true if the input has no formatting issues.
@@ -401,6 +366,34 @@ public abstract class Parser implements ParserStringList, ModeStringList {
         return tempStr;
     }
 
+    //@@author tatayu
+    /**
+     * Check if the component is valid.
+     * @param s string at the component position.
+     * @return true if it is a valid component.
+     */
+    protected Boolean verifyDebtSearchComponent(String s) {
+        return s.equals(SEARCH_DESCRIPTION) || s.equals(SEARCH_DATE) || s.equals(SEARCH_NAME);
+    }
+
+    /**
+     * Check if the component is valid.
+     * @param s string at the component position.
+     * @return true if it is a valid component.
+     */
+    protected Boolean verifyEntrySearchComponent(String s) {
+        return s.equals(SEARCH_DESCRIPTION) || s.equals(SEARCH_DATE);
+    }
+
+    /**
+     * Check if the component is valid.
+     * @param s string at the component position.
+     * @return true if it is a valid component.
+     */
+    protected Boolean verifyLimitSearchComponent(String s) {
+        return s.equals(SEARCH_DURATION);
+    }
+
     //@@author Weng-Kexin
     protected double findLimitAmount() {
         double amount = 0;
@@ -442,4 +435,5 @@ public abstract class Parser implements ParserStringList, ModeStringList {
         }
         return isValid;
     }
+
 }
