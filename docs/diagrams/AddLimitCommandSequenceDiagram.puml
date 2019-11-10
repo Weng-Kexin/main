@@ -6,7 +6,7 @@ Actor User as user USER_COLOR
 Participant ":Logic" as logic LOGIC_COLOR
 Participant ":Model" as model MODEL_COLOR
 Participant ":Storage" as storage STORAGE_COLOR
-Participant ":LimitUi" as limitUi UI_COLOR
+Participant ":Ui" as Ui UI_COLOR
 
 note left of user: The user is in limit mode
 
@@ -37,11 +37,11 @@ deactivate storage
 model --[MODEL_COLOR]> logic
 deactivate model
 
-logic -[UI_COLOR]> limitUi : echoAddLimit(newLimit)
-activate limitUi UI_COLOR
+logic -[UI_COLOR]> Ui : echoAddLimit(newLimit)
+activate Ui UI_COLOR
 
-limitUi--[UI_COLOR]> logic
-deactivate limitUi
+Ui--[UI_COLOR]> logic
+deactivate Ui
 
 logic --[LOGIC_COLOR]> user
 deactivate logic
