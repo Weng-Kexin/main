@@ -13,30 +13,45 @@ Package Ui <<Rectangle>> {
 Class ActionUi
 Class DebtUi
 Class EntryUi
+Class HelpUi
 Class LimitUi
 Class ListUi
 Class ModifyUi
+Class RemoveUi
 Class SearchUi
+Class ShortcutUi
+Class SortUi
 Class StorageUi
+Class ViewUi
 Class "{abstract}\nUi" as Ui
 
 HiddenOutside ..> ActionUi
 HiddenOutside ..> DebtUi
 HiddenOutside ..> EntryUi
+HiddenOutside ..> HelpUi
 HiddenOutside ..> LimitUi
 HiddenOutside ..> ListUi
 HiddenOutside ..> ModifyUi
+HiddenOutside ..> RemoveUi
 HiddenOutside ..> SearchUi
+HiddenOutside ..> ShortcutUi
+HiddenOutside ..> SortUi
 HiddenOutside ..> StorageUi
+HiddenOutside ..> ViewUi
 
-ActionUi -down-|> Ui
-DebtUi -down-|> Ui
+ActionUi --> Ui
+DebtUi -down-|>Ui
 EntryUi -down-|> Ui
+HelpUi -up-|> Ui
 LimitUi -down-|> Ui
-ListUi -down-|> Ui
-ModifyUi -down-|> Ui
-SearchUi -down-|> Ui
-StorageUi -down-|> Ui
+ListUi -up-|> Ui
+ModifyUi -left-|> Ui
+RemoveUi -down-|> Ui
+SearchUi -up-|> Ui
+ShortcutUi -down-|> Ui
+SortUi -up-|> Ui
+StorageUi -up-|> Ui
+ViewUi -up-|> Ui
 }
 
 @enduml
