@@ -1,51 +1,49 @@
 @startuml
-
 !include style.puml
 
 Actor User as user USER_COLOR
 Participant ":Logic" as logic LOGIC_COLOR
 Participant ":Model" as model MODEL_COLOR
 Participant ":Storage" as storage STORAGE_COLOR
-Participant ":Ui" as Ui UI_COLOR
+
+box Ui UI_COLOR_T1
+Participant ":LimitUi" as LimitUi UI_COLOR_T4
+end box
 
 note left of user: The user is in limit mode
 
-user -[USER_COLOR]> logic : "set budget 10 daily"
+user -[USER_COLOR]> logic : "remaining daily saving"
 activate logic LOGIC_COLOR
 
-logic -[LOGIC_COLOR]> logic : verifySetCommand()
+logic -[LOGIC_COLOR]> logic : isShowRemainingCmd()
+activate logic LOGIC_COLOR_T1
+logic --[LOGIC_COLOR]> logic : true
+deactivate logic
+
+logic -[LOGIC_COLOR]> logic : verifyShowRemainingLimitCommand()
+activate logic LOGIC_COLOR_T1
+logic --[LOGIC_COLOR]> logic : true
+deactivate logic
+
+logic -[LOGIC_COLOR]> logic : ShowRemainingLimitCommand(daily, saving)
 activate logic LOGIC_COLOR_T1
 deactivate logic
 
-logic -[LOGIC_COLOR]> logic : AddLimitCommand(budget, 10, daily)
-activate logic LOGIC_COLOR_T1
-deactivate logic
-
-logic -[LOGIC_COLOR]> logic : recordDoesNotExist()
-activate logic LOGIC_COLOR_T1
-deactivate logic
-
-logic -[LOGIC_COLOR]> model : addToRecordList(mode, newLimit)
+logic -[MODEL_COLOR]> model : execute(dollaData)
 activate model MODEL_COLOR
 
-model -[LOGIC_COLOR]> storage : setLimits(get())
+model -[STORAGE_COLOR]> storage : findLimit(), \nfindTotalEntries()
 activate storage STORAGE_COLOR
-
-storage -[STORAGE_COLOR]> storage : save to file
-activate storage STORAGE_COLOR_T1
-deactivate storage
-
 storage --[STORAGE_COLOR]> model
 deactivate storage
 
 model --[MODEL_COLOR]> logic
 deactivate model
 
-logic -[UI_COLOR]> Ui : echoAddLimit(newLimit)
-activate Ui UI_COLOR
-
-Ui--[UI_COLOR]> logic
-deactivate Ui
+logic -[UI_COLOR]> LimitUi : processRemainingLimit()
+activate LimitUi
+LimitUi --[UI_COLOR]> logic
+deactivate LimitUi
 
 logic --[LOGIC_COLOR]> user
 deactivate logic
